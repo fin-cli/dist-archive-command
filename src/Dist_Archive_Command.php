@@ -1,7 +1,7 @@
 <?php
 
 use Inmarelibero\GitIgnoreChecker\GitIgnoreChecker;
-use WP_CLI\Utils;
+use FP_CLI\Utils;
 
 /**
  * Create a distribution archive based on a project's .distignore file.
@@ -15,8 +15,8 @@ class Dist_Archive_Command {
 	/**
 	 * Create a distribution archive based on a project's .distignore file.
 	 *
-	 * For a plugin in a directory 'wp-content/plugins/hello-world', this command
-	 * creates a distribution archive 'wp-content/plugins/hello-world.zip'.
+	 * For a plugin in a directory 'fp-content/plugins/hello-world', this command
+	 * creates a distribution archive 'fp-content/plugins/hello-world.zip'.
 	 *
 	 * You can specify files or directories you'd like to exclude from the archive
 	 * with a .distignore file in your project repository:
@@ -68,7 +68,7 @@ class Dist_Archive_Command {
 	 * default: "{name}.{version}"
 	 * ---
 	 *
-	 * @when before_wp_load
+	 * @when before_fp_load
 	 */
 	public function __invoke( $args, $assoc_args ) {
 
@@ -79,7 +79,7 @@ class Dist_Archive_Command {
 		if ( file_exists( $dist_ignore_filepath ) ) {
 			$file_ignore_rules = explode( PHP_EOL, (string) file_get_contents( $dist_ignore_filepath ) );
 		} else {
-			WP_CLI::warning( 'No .distignore file found. All files in directory included in archive.' );
+			FP_CLI::warning( 'No .distignore file found. All files in directory included in archive.' );
 			$file_ignore_rules = [];
 		}
 
@@ -105,8 +105,8 @@ class Dist_Archive_Command {
 		if ( file_exists( $archive_absolute_filepath ) ) {
 			$should_overwrite = Utils\get_flag_value( $assoc_args, 'force' );
 			if ( ! $should_overwrite ) {
-				WP_CLI::warning( 'Archive file already exists' );
-				WP_CLI::log( $archive_absolute_filepath );
+				FP_CLI::warning( 'Archive file already exists' );
+				FP_CLI::log( $archive_absolute_filepath );
 				$answer      = \cli\prompt(
 					'Do you want to skip or replace it with a new archive?',
 					$default = false,
@@ -115,11 +115,11 @@ class Dist_Archive_Command {
 				$should_overwrite = 'r' === strtolower( $answer );
 			}
 			if ( ! $should_overwrite ) {
-				WP_CLI::log( 'Skipping' . PHP_EOL );
-				WP_CLI::log( 'Archive generation skipped.' );
+				FP_CLI::log( 'Skipping' . PHP_EOL );
+				FP_CLI::log( 'Archive generation skipped.' );
 				exit( 0 );
 			}
-			WP_CLI::log( "Replacing $archive_absolute_filepath" . PHP_EOL );
+			FP_CLI::log( "Replacing $archive_absolute_filepath" . PHP_EOL );
 		}
 
 		chdir( dirname( $source_path ) );
@@ -175,21 +175,21 @@ class Dist_Archive_Command {
 		}
 
 		$escape_whitelist = 'targz' === $assoc_args['format'] ? array( '^', '*' ) : array();
-		WP_CLI::debug( "Running: {$cmd}", 'dist-archive' );
+		FP_CLI::debug( "Running: {$cmd}", 'dist-archive' );
 		$escaped_shell_command = $this->escapeshellcmd( $cmd, $escape_whitelist );
 
 		/**
-		 * @var WP_CLI\ProcessRun $ret
+		 * @var FP_CLI\ProcessRun $ret
 		 */
-		$ret = WP_CLI::launch( $escaped_shell_command, false, true );
+		$ret = FP_CLI::launch( $escaped_shell_command, false, true );
 		if ( 0 === $ret->return_code ) {
 			$filename  = pathinfo( $archive_absolute_filepath, PATHINFO_BASENAME );
 			$file_size = $this->get_size_format( (int) filesize( $archive_absolute_filepath ), 2 );
 
-			WP_CLI::success( "Created {$filename} (Size: {$file_size})" );
+			FP_CLI::success( "Created {$filename} (Size: {$file_size})" );
 		} else {
 			$error = $ret->stderr ?: $ret->stdout;
-			WP_CLI::error( $error );
+			FP_CLI::error( $error );
 		}
 	}
 
@@ -208,7 +208,7 @@ class Dist_Archive_Command {
 
 		$source_dir_path = realpath( $args[0] );
 		if ( ! $source_dir_path || ! is_dir( $source_dir_path ) ) {
-			WP_CLI::error( 'Provided input path is not a directory.' );
+			FP_CLI::error( 'Provided input path is not a directory.' );
 		}
 
 		if ( isset( $args[1] ) ) {
@@ -246,7 +246,7 @@ class Dist_Archive_Command {
 		$destination_dir_path = realpath( $destination_dir_path );
 
 		if ( ! $destination_dir_path || ! is_dir( $destination_dir_path ) ) {
-			WP_CLI::error( "Target directory does not exist: {$destination_dir_path}" );
+			FP_CLI::error( "Target directory does not exist: {$destination_dir_path}" );
 		}
 
 		// Use the optionally supplied plugin-dirname, or use the name of the directory containing the source files.
@@ -288,7 +288,7 @@ class Dist_Archive_Command {
 		 * parse the theme's version from the headers using a regex pattern.
 		 * The pattern used is extracted from the get_file_data() function in core.
 		 *
-		 * @link https://developer.wordpress.org/reference/functions/get_file_data/
+		 * @link https://developer.finpress.org/reference/functions/get_file_data/
 		 */
 		if ( file_exists( $source_dir_path . '/style.css' ) ) {
 			$contents = (string) file_get_contents( $source_dir_path . '/style.css', false, null, 0, 5000 );
@@ -325,9 +325,9 @@ class Dist_Archive_Command {
 
 		if ( ! empty( $version ) && false !== stripos( $version, '-alpha' ) && is_dir( $source_dir_path . '/.git' ) ) {
 			/**
-			 * @var WP_CLI\ProcessRun $response
+			 * @var FP_CLI\ProcessRun $response
 			 */
-			$response   = WP_CLI::launch( "cd {$source_dir_path}; git log --pretty=format:'%h' -n 1", false, true );
+			$response   = FP_CLI::launch( "cd {$source_dir_path}; git log --pretty=format:'%h' -n 1", false, true );
 			$maybe_hash = trim( $response->stdout );
 			if ( $maybe_hash && 7 === strlen( $maybe_hash ) ) {
 				$version .= '-' . $maybe_hash;
@@ -513,9 +513,9 @@ class Dist_Archive_Command {
 				}
 			} catch ( \Inmarelibero\GitIgnoreChecker\Exception\InvalidArgumentException $exception ) {
 				if ( $item->isLink() && ! file_exists( (string) readlink( $item->getPathname() ) ) ) {
-					WP_CLI::error( "Broken symlink at {$relative_filepath}. Target missing at {$item->getLinkTarget()}." );
+					FP_CLI::error( "Broken symlink at {$relative_filepath}. Target missing at {$item->getLinkTarget()}." );
 				} else {
-					WP_CLI::error( $exception->getMessage() );
+					FP_CLI::error( $exception->getMessage() );
 				}
 			}
 		}
@@ -543,7 +543,7 @@ class Dist_Archive_Command {
 	 * @return string Number string.
 	 */
 	private function get_size_format( $bytes, $decimals = 0 ) {
-		// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound -- Backfilling WP native constants.
+		// phpcs:disable FinPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound -- Backfilling FP native constants.
 		if ( ! defined( 'KB_IN_BYTES' ) ) {
 			define( 'KB_IN_BYTES', 1024 );
 		}

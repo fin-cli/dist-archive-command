@@ -1,21 +1,21 @@
 <?php
 
-if ( ! class_exists( 'WP_CLI' ) ) {
+if ( ! class_exists( 'FP_CLI' ) ) {
 	return;
 }
 
-$wpcli_dist_archive_autoloader = __DIR__ . '/vendor/autoload.php';
-if ( file_exists( $wpcli_dist_archive_autoloader ) ) {
-	require_once $wpcli_dist_archive_autoloader;
+$fpcli_dist_archive_autoloader = __DIR__ . '/vendor/autoload.php';
+if ( file_exists( $fpcli_dist_archive_autoloader ) ) {
+	require_once $fpcli_dist_archive_autoloader;
 }
 
-WP_CLI::add_command(
+FP_CLI::add_command(
 	'dist-archive',
 	'Dist_Archive_Command',
 	[
 		'before_invoke' => function () {
 			if ( version_compare( PHP_VERSION, '7.1', '<' ) ) {
-				WP_CLI::error( 'PHP 7.1 or later is required.' );
+				FP_CLI::error( 'PHP 7.1 or later is required.' );
 			}
 		},
 	]

@@ -1,8 +1,8 @@
 {
-    "name": "wp-cli/dist-archive-command",
-    "type": "wp-cli-package",
+    "name": "fp-cli/dist-archive-command",
+    "type": "fp-cli-package",
     "description": "Create a distribution .zip or .tar.gz based on a plugin or theme's .distignore file.",
-    "homepage": "https://github.com/wp-cli/dist-archive-command/",
+    "homepage": "https://github.com/fp-cli/dist-archive-command/",
     "license": "MIT",
     "authors": [
         {
@@ -13,13 +13,13 @@
     ],
     "require": {
         "php": ">=7.2",
-        "wp-cli/wp-cli": "^2",
+        "fp-cli/fp-cli": "^2",
         "inmarelibero/gitignore-checker": "^1.0.4"
     },
     "require-dev": {
-        "wp-cli/wp-cli-tests": "^5",
-        "wp-cli/scaffold-command": "^2",
-        "wp-cli/extension-command": "^2"
+        "fp-cli/fp-cli-tests": "^5",
+        "fp-cli/scaffold-command": "^2",
+        "fp-cli/extension-command": "^2"
     },
     "extra": {
         "commands": [
@@ -27,7 +27,7 @@
         ],
         "readme": {
             "shields": [
-                "[![Testing](https://github.com/wp-cli/dist-archive-command/actions/workflows/testing.yml/badge.svg)](https://github.com/wp-cli/dist-archive-command/actions/workflows/testing.yml)"
+                "[![Testing](https://github.com/fp-cli/dist-archive-command/actions/workflows/testing.yml/badge.svg)](https://github.com/fp-cli/dist-archive-command/actions/workflows/testing.yml)"
             ]
         }
     },
@@ -61,7 +61,7 @@
     "config": {
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,
-            "johnpbloch/wordpress-core-installer": true,
+            "johnpbloch/finpress-core-installer": true,
             "phpstan/extension-installer": true
         },
         "lock": false

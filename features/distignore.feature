@@ -29,7 +29,7 @@ Feature: Generate a distribution archive of a project with .distignore
       echo 'Hello world'; bak
       """
 
-    When I run `wp dist-archive foo`
+    When I run `fp dist-archive foo`
     Then STDOUT should match /^Success: Created foo.zip \(Size: \d+(?:\.\d*)? [a-zA-Z]{1,3}\)$/
 
     When I run `rm -rf foo`
@@ -63,7 +63,7 @@ Feature: Generate a distribution archive of a project with .distignore
       Bad!
       """
 
-    When I run `wp dist-archive foo --format=<format>`
+    When I run `fp dist-archive foo --format=<format>`
     Then STDOUT should match /^Success: Created foo.<extension> \(Size: \d+(?:\.\d*)? [a-zA-Z]{1,3}\)$/
     And the foo.<extension> file should exist
 
@@ -103,7 +103,7 @@ Feature: Generate a distribution archive of a project with .distignore
     And the foo/.git directory should exist
     And the foo/.git/subfolder/version.control file should exist
 
-    When I run `wp dist-archive foo --format=<format>`
+    When I run `fp dist-archive foo --format=<format>`
     Then STDOUT should match /^Success: Created foo.<extension> \(Size: \d+(?:\.\d*)? [a-zA-Z]{1,3}\)$/
     And the foo.<extension> file should exist
 
@@ -152,7 +152,7 @@ Feature: Generate a distribution archive of a project with .distignore
       Do not ignore
       """
 
-    When I run `wp dist-archive foo --format=<format> --plugin-dirname=<plugin-dirname>`
+    When I run `fp dist-archive foo --format=<format> --plugin-dirname=<plugin-dirname>`
     Then STDOUT should match /^Success: Created <plugin-dirname>.<extension> \(Size: \d+(?:\.\d*)? [a-zA-Z]{1,3}\)$/
     And the <plugin-dirname>.<extension> file should exist
 
@@ -200,7 +200,7 @@ Feature: Generate a distribution archive of a project with .distignore
       Do not ignore
       """
 
-    When I run `wp dist-archive foo --format=<format> --plugin-dirname=<plugin-dirname>`
+    When I run `fp dist-archive foo --format=<format> --plugin-dirname=<plugin-dirname>`
     Then STDOUT should match /^Success: Created <plugin-dirname>.<extension> \(Size: \d+(?:\.\d*)? [a-zA-Z]{1,3}\)$/
     And the <plugin-dirname>.<extension> file should exist
 
@@ -244,7 +244,7 @@ Feature: Generate a distribution archive of a project with .distignore
       Ignore
       """
 
-    When I run `wp dist-archive foo --format=<format> --plugin-dirname=<plugin-dirname>`
+    When I run `fp dist-archive foo --format=<format> --plugin-dirname=<plugin-dirname>`
     Then STDOUT should match /^Success: Created <plugin-dirname>.<extension> \(Size: \d+(?:\.\d*)? [a-zA-Z]{1,3}\)$/
     And the <plugin-dirname>.<extension> file should exist
 
@@ -268,7 +268,7 @@ Feature: Generate a distribution archive of a project with .distignore
       | targz  | tar.gz    | tar -zxvf | bar2           |
 
   Scenario Outline: Ignores files in ignored directory except subdirectory excluded from exclusion: `!/frontend/build/`
-    # @see https://github.com/wp-cli/dist-archive-command/issues/44#issue-917541953
+    # @see https://github.com/fp-cli/dist-archive-command/issues/44#issue-917541953
     Given an empty directory
     And a foo/test.php file:
       """
@@ -289,7 +289,7 @@ Feature: Generate a distribution archive of a project with .distignore
       includeme
       """
 
-    When I run `wp dist-archive foo --format=<format> --plugin-dirname=<plugin-dirname>`
+    When I run `fp dist-archive foo --format=<format> --plugin-dirname=<plugin-dirname>`
     Then STDOUT should match /^Success: Created <plugin-dirname>.<extension> \(Size: \d+(?:\.\d*)? [a-zA-Z]{1,3}\)$/
     And the <plugin-dirname>.<extension> file should exist
 
@@ -313,7 +313,7 @@ Feature: Generate a distribution archive of a project with .distignore
       | targz  | tar.gz    | tar -zxvf | bar6           |
 
   Scenario Outline: Ignores files matching pattern in all subdirectories of explicit directory: `blocks/src/block/**/*.js`
-    # @see https://github.com/wp-cli/dist-archive-command/issues/44#issuecomment-1677135516
+    # @see https://github.com/fp-cli/dist-archive-command/issues/44#issuecomment-1677135516
     Given an empty directory
     And a foo/.distignore file:
       """
@@ -336,7 +336,7 @@ Feature: Generate a distribution archive of a project with .distignore
       includeme
       """
 
-    When I run `wp dist-archive foo --format=<format> --plugin-dirname=<plugin-dirname>`
+    When I run `fp dist-archive foo --format=<format> --plugin-dirname=<plugin-dirname>`
     Then STDOUT should match /^Success: Created <plugin-dirname>.<extension> \(Size: \d+(?:\.\d*)? [a-zA-Z]{1,3}\)$/
     And the <plugin-dirname>.<extension> file should exist
 
@@ -361,7 +361,7 @@ Feature: Generate a distribution archive of a project with .distignore
       | targz  | tar.gz    | tar -zxvf | bar8           |
 
   Scenario: Does not crash when a broken symlink is encountered
-    # @see https://github.com/wp-cli/dist-archive-command/issues/86
+    # @see https://github.com/fp-cli/dist-archive-command/issues/86
     Given an empty directory
     And an empty foo/target-directory directory
     And a foo/.distignore file:
@@ -374,7 +374,7 @@ Feature: Generate a distribution archive of a project with .distignore
     When I run `rm -rf {RUN_DIR}/foo/target-directory`
     Then STDERR should be empty
 
-    When I try `wp dist-archive foo`
+    When I try `fp dist-archive foo`
     Then STDERR should contain:
       """
       Error: Broken symlink at /symlink. Target missing at
