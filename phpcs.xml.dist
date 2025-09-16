@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="FP-CLI-dist-archive">
-	<description>Custom ruleset for FP-CLI dist-archive-command</description>
+<ruleset name="FIN-CLI-dist-archive">
+	<description>Custom ruleset for FIN-CLI dist-archive-command</description>
 
  	<!--
 	#############################################################################
@@ -24,11 +24,11 @@
 
  	<!--
 	#############################################################################
-	USE THE FP_CLI_CS RULESET
+	USE THE FIN_CLI_CS RULESET
 	#############################################################################
 	-->
 
- 	<rule ref="FP_CLI_CS"/>
+ 	<rule ref="FIN_CLI_CS"/>
 
  	<!--
 	#############################################################################
@@ -46,10 +46,10 @@
 	<exclude name="FinPress.NamingConventions.PrefixAllGlobals.NonPrefixedClassFound" />
 		<properties>
 			<property name="prefixes" type="array">
-				<element value="FP_CLI\DistArchive"/><!-- Namespaces. -->
-				<element value="fpcli_dist_archive"/><!-- Global variables and such. -->
-				<element value="FP_CLI_ROOT" />
-				<element value="FP_CLI_VENDOR_DIR" />
+				<element value="FIN_CLI\DistArchive"/><!-- Namespaces. -->
+				<element value="fincli_dist_archive"/><!-- Global variables and such. -->
+				<element value="FIN_CLI_ROOT" />
+				<element value="FIN_CLI_VENDOR_DIR" />
 			</property>
 		</properties>
 	</rule>

@@ -2,109 +2,109 @@
 Feature: Generate a distribution archive of a project
 
   Scenario: Generates a ZIP archive by default
-    Given a FP install
+    Given a FIN install
 
-    When I run `fp scaffold plugin hello-world`
-    Then the fp-content/plugins/hello-world directory should exist
-    And the fp-content/plugins/hello-world/hello-world.php file should exist
-    And the fp-content/plugins/hello-world/.circleci/config.yml file should exist
-    And the fp-content/plugins/hello-world/bin directory should exist
+    When I run `fin scaffold plugin hello-world`
+    Then the fin-content/plugins/hello-world directory should exist
+    And the fin-content/plugins/hello-world/hello-world.php file should exist
+    And the fin-content/plugins/hello-world/.circleci/config.yml file should exist
+    And the fin-content/plugins/hello-world/bin directory should exist
 
-    When I run `fp dist-archive fp-content/plugins/hello-world`
+    When I run `fin dist-archive fin-content/plugins/hello-world`
     Then STDOUT should match /^Success: Created hello-world.0.1.0.zip \(Size: \d+(?:\.\d*)? [a-zA-Z]{1,3}\)$/
     And STDERR should be empty
-    And the fp-content/plugins/hello-world.0.1.0.zip file should exist
+    And the fin-content/plugins/hello-world.0.1.0.zip file should exist
 
-    When I run `fp plugin delete hello-world`
-    Then the fp-content/plugins/hello-world directory should not exist
+    When I run `fin plugin delete hello-world`
+    Then the fin-content/plugins/hello-world directory should not exist
 
-    When I run `fp plugin install fp-content/plugins/hello-world.0.1.0.zip`
-    Then the fp-content/plugins/hello-world directory should exist
-    And the fp-content/plugins/hello-world/hello-world.php file should exist
-    And the fp-content/plugins/hello-world/.circleci/config.yml file should not exist
-    And the fp-content/plugins/hello-world/bin directory should not exist
+    When I run `fin plugin install fin-content/plugins/hello-world.0.1.0.zip`
+    Then the fin-content/plugins/hello-world directory should exist
+    And the fin-content/plugins/hello-world/hello-world.php file should exist
+    And the fin-content/plugins/hello-world/.circleci/config.yml file should not exist
+    And the fin-content/plugins/hello-world/bin directory should not exist
 
   Scenario: Generates a tarball archive with a flag
-    Given a FP install
+    Given a FIN install
 
-    When I run `fp scaffold plugin hello-world`
-    Then the fp-content/plugins/hello-world directory should exist
-    And the fp-content/plugins/hello-world/hello-world.php file should exist
-    And the fp-content/plugins/hello-world/.circleci/config.yml file should exist
-    And the fp-content/plugins/hello-world/bin directory should exist
+    When I run `fin scaffold plugin hello-world`
+    Then the fin-content/plugins/hello-world directory should exist
+    And the fin-content/plugins/hello-world/hello-world.php file should exist
+    And the fin-content/plugins/hello-world/.circleci/config.yml file should exist
+    And the fin-content/plugins/hello-world/bin directory should exist
 
-    When I run `fp dist-archive fp-content/plugins/hello-world --format=targz`
+    When I run `fin dist-archive fin-content/plugins/hello-world --format=targz`
     Then STDOUT should match /^Success: Created hello-world.0.1.0.tar.gz \(Size: \d+(?:\.\d*)? [a-zA-Z]{1,3}\)$/
     And STDERR should be empty
-    And the fp-content/plugins/hello-world.0.1.0.tar.gz file should exist
+    And the fin-content/plugins/hello-world.0.1.0.tar.gz file should exist
 
-    When I run `fp plugin delete hello-world`
-    Then the fp-content/plugins/hello-world directory should not exist
+    When I run `fin plugin delete hello-world`
+    Then the fin-content/plugins/hello-world directory should not exist
 
-    When I try `cd fp-content/plugins/ && tar -zxvf hello-world.0.1.0.tar.gz`
-    Then the fp-content/plugins/hello-world directory should exist
-    And the fp-content/plugins/hello-world/hello-world.php file should exist
-    And the fp-content/plugins/hello-world/.circleci/config.yml file should not exist
-    And the fp-content/plugins/hello-world/bin directory should not exist
+    When I try `cd fin-content/plugins/ && tar -zxvf hello-world.0.1.0.tar.gz`
+    Then the fin-content/plugins/hello-world directory should exist
+    And the fin-content/plugins/hello-world/hello-world.php file should exist
+    And the fin-content/plugins/hello-world/.circleci/config.yml file should not exist
+    And the fin-content/plugins/hello-world/bin directory should not exist
 
   Scenario: Generate a ZIP archive with a custom name
-    Given a FP install
+    Given a FIN install
 
-    When I run `fp scaffold plugin hello-world`
-    Then the fp-content/plugins/hello-world directory should exist
-    And the fp-content/plugins/hello-world/hello-world.php file should exist
-    And the fp-content/plugins/hello-world/.circleci/config.yml file should exist
-    And the fp-content/plugins/hello-world/bin directory should exist
+    When I run `fin scaffold plugin hello-world`
+    Then the fin-content/plugins/hello-world directory should exist
+    And the fin-content/plugins/hello-world/hello-world.php file should exist
+    And the fin-content/plugins/hello-world/.circleci/config.yml file should exist
+    And the fin-content/plugins/hello-world/bin directory should exist
 
-    When I run `fp dist-archive fp-content/plugins/hello-world hello-world.zip`
+    When I run `fin dist-archive fin-content/plugins/hello-world hello-world.zip`
     Then STDOUT should match /^Success: Created hello-world.zip \(Size: \d+(?:\.\d*)? [a-zA-Z]{1,3}\)$/
-    And the fp-content/plugins/hello-world.zip file should exist
-    And the fp-content/plugins/hello-world.0.1.0.zip file should not exist
+    And the fin-content/plugins/hello-world.zip file should exist
+    And the fin-content/plugins/hello-world.0.1.0.zip file should not exist
 
   Scenario: Generate a ZIP archive to a relative path without specifying the filename
-    Given a FP install
+    Given a FIN install
 
-    When I run `fp scaffold plugin hello-world`
-    Then the fp-content/plugins/hello-world directory should exist
-    And the fp-content/plugins/hello-world/hello-world.php file should exist
-    And the fp-content/plugins/hello-world/.circleci/config.yml file should exist
-    And the fp-content/plugins/hello-world/bin directory should exist
+    When I run `fin scaffold plugin hello-world`
+    Then the fin-content/plugins/hello-world directory should exist
+    And the fin-content/plugins/hello-world/hello-world.php file should exist
+    And the fin-content/plugins/hello-world/.circleci/config.yml file should exist
+    And the fin-content/plugins/hello-world/bin directory should exist
 
-    When I run `fp dist-archive fp-content/plugins/hello-world fp-content`
+    When I run `fin dist-archive fin-content/plugins/hello-world fin-content`
     Then STDOUT should match /^Success: Created hello-world.0.1.0.zip \(Size: \d+(?:\.\d*)? [a-zA-Z]{1,3}\)$/
-    And the fp-content/hello-world.0.1.0.zip file should exist
-    And the fp-content/plugins/hello-world.0.1.0.zip file should not exist
+    And the fin-content/hello-world.0.1.0.zip file should exist
+    And the fin-content/plugins/hello-world.0.1.0.zip file should not exist
 
   Scenario: Generate a ZIP archive to a relative path with a specified filename
-    Given a FP install
+    Given a FIN install
 
-    When I run `fp scaffold plugin hello-world`
-    Then the fp-content/plugins/hello-world directory should exist
-    And the fp-content/plugins/hello-world/hello-world.php file should exist
-    And the fp-content/plugins/hello-world/.circleci/config.yml file should exist
-    And the fp-content/plugins/hello-world/bin directory should exist
+    When I run `fin scaffold plugin hello-world`
+    Then the fin-content/plugins/hello-world directory should exist
+    And the fin-content/plugins/hello-world/hello-world.php file should exist
+    And the fin-content/plugins/hello-world/.circleci/config.yml file should exist
+    And the fin-content/plugins/hello-world/bin directory should exist
 
     When I run `mkdir subdir`
     Then the subdir directory should exist
 
-    When I run `fp dist-archive fp-content/plugins/hello-world ./subdir/hello-world.zip`
+    When I run `fin dist-archive fin-content/plugins/hello-world ./subdir/hello-world.zip`
     Then STDOUT should match /^Success: Created hello-world.zip \(Size: \d+(?:\.\d*)? [a-zA-Z]{1,3}\)$/
     And STDERR should be empty
     And the {RUN_DIR}/subdir/hello-world.zip file should exist
 
   Scenario: Generate a ZIP archive to an absolute path without specifying the filename
-    Given a FP install
+    Given a FIN install
 
-    When I run `fp scaffold plugin hello-world`
-    Then the fp-content/plugins/hello-world directory should exist
-    And the fp-content/plugins/hello-world/hello-world.php file should exist
-    And the fp-content/plugins/hello-world/.circleci/config.yml file should exist
-    And the fp-content/plugins/hello-world/bin directory should exist
+    When I run `fin scaffold plugin hello-world`
+    Then the fin-content/plugins/hello-world directory should exist
+    And the fin-content/plugins/hello-world/hello-world.php file should exist
+    And the fin-content/plugins/hello-world/.circleci/config.yml file should exist
+    And the fin-content/plugins/hello-world/bin directory should exist
 
-    When I run `fp dist-archive fp-content/plugins/hello-world {RUN_DIR}/fp-content/`
+    When I run `fin dist-archive fin-content/plugins/hello-world {RUN_DIR}/fin-content/`
     Then STDOUT should match /^Success: Created hello-world.0.1.0.zip \(Size: \d+(?:\.\d*)? [a-zA-Z]{1,3}\)$/
     And STDERR should be empty
-    And the {RUN_DIR}/fp-content/hello-world.0.1.0.zip file should exist
+    And the {RUN_DIR}/fin-content/hello-world.0.1.0.zip file should exist
 
   Scenario: Generate a ZIP archive using version number in composer.json
     Given an empty directory
@@ -123,12 +123,12 @@ Feature: Generate a distribution archive of a project
       {
       "name": "runcommand/profile",
       "description": "Quickly identify what's slow with FinPress.",
-      "homepage": "https://runcommand.io/fp/profile/",
+      "homepage": "https://runcommand.io/fin/profile/",
       "version": "0.2.0-alpha"
       }
       """
 
-    When I run `fp dist-archive foo`
+    When I run `fin dist-archive foo`
     Then STDOUT should match /^Success: Created foo.0.2.0-alpha.zip \(Size: \d* [a-zA-Z]{1,3}\)$/
     And the foo.0.2.0-alpha.zip file should exist
 
@@ -142,165 +142,165 @@ Feature: Generate a distribution archive of a project
     And the foo/features/sample.feature file should not exist
 
   Scenario: Create directories automatically if requested
-    Given a FP install
+    Given a FIN install
 
-    When I run `fp scaffold plugin hello-world`
-    Then the fp-content/plugins/hello-world directory should exist
-    And the fp-content/plugins/hello-world/hello-world.php file should exist
-    And the fp-content/plugins/hello-world/.circleci/config.yml file should exist
-    And the fp-content/plugins/hello-world/bin directory should exist
+    When I run `fin scaffold plugin hello-world`
+    Then the fin-content/plugins/hello-world directory should exist
+    And the fin-content/plugins/hello-world/hello-world.php file should exist
+    And the fin-content/plugins/hello-world/.circleci/config.yml file should exist
+    And the fin-content/plugins/hello-world/bin directory should exist
 
-    When I try `fp dist-archive fp-content/plugins/hello-world {RUN_DIR}/some/nested/folder/hello-world.zip`
+    When I try `fin dist-archive fin-content/plugins/hello-world {RUN_DIR}/some/nested/folder/hello-world.zip`
     Then STDERR should contain:
       """
       Error: Target directory does not exist
       """
 
-    When I run `fp dist-archive --create-target-dir fp-content/plugins/hello-world {RUN_DIR}/some/nested/folder/hello-world.zip`
+    When I run `fin dist-archive --create-target-dir fin-content/plugins/hello-world {RUN_DIR}/some/nested/folder/hello-world.zip`
     Then STDOUT should match /^Success: Created hello-world.zip \(Size: \d+(?:\.\d*)? [a-zA-Z]{1,3}\)$/
     And STDERR should be empty
     And the {RUN_DIR}/some/nested/folder/hello-world.zip file should exist
 
   Scenario: Allow specifying the current directory for input using dot
-    Given a FP install
+    Given a FIN install
 
-    When I run `fp scaffold plugin hello-world`
-    Then the fp-content/plugins/hello-world directory should exist
-    And the fp-content/plugins/hello-world/hello-world.php file should exist
-    And the fp-content/plugins/hello-world/.circleci/config.yml file should exist
-    And the fp-content/plugins/hello-world/bin directory should exist
+    When I run `fin scaffold plugin hello-world`
+    Then the fin-content/plugins/hello-world directory should exist
+    And the fin-content/plugins/hello-world/hello-world.php file should exist
+    And the fin-content/plugins/hello-world/.circleci/config.yml file should exist
+    And the fin-content/plugins/hello-world/bin directory should exist
 
-    When I run `fp dist-archive . {RUN_DIR}/hello-world.zip` from 'fp-content/plugins/hello-world'
+    When I run `fin dist-archive . {RUN_DIR}/hello-world.zip` from 'fin-content/plugins/hello-world'
     Then STDOUT should match /^Success: Created hello-world.zip \(Size: \d+(?:\.\d*)? [a-zA-Z]{1,3}\)$/
     And STDERR should be empty
     And the {RUN_DIR}/hello-world.zip file should exist
 
   Scenario: Use plugin parent directory for output unless otherwise specified
-    Given a FP install
+    Given a FIN install
 
-    When I run `fp scaffold plugin hello-world`
-    Then the fp-content/plugins/hello-world directory should exist
-    And the fp-content/plugins/hello-world/hello-world.php file should exist
-    And the fp-content/plugins/hello-world/.circleci/config.yml file should exist
-    And the fp-content/plugins/hello-world/bin directory should exist
+    When I run `fin scaffold plugin hello-world`
+    Then the fin-content/plugins/hello-world directory should exist
+    And the fin-content/plugins/hello-world/hello-world.php file should exist
+    And the fin-content/plugins/hello-world/.circleci/config.yml file should exist
+    And the fin-content/plugins/hello-world/bin directory should exist
 
-    When I run `fp dist-archive . hello-world.zip` from 'fp-content/plugins/hello-world'
+    When I run `fin dist-archive . hello-world.zip` from 'fin-content/plugins/hello-world'
     Then STDOUT should match /^Success: Created hello-world.zip \(Size: \d+(?:\.\d*)? [a-zA-Z]{1,3}\)$/
     And STDERR should be empty
-    And the {RUN_DIR}/fp-content/plugins/hello-world.zip file should exist
+    And the {RUN_DIR}/fin-content/plugins/hello-world.zip file should exist
 
   Scenario: Use current directory for output when specified
-    Given a FP install
+    Given a FIN install
 
-    When I run `fp scaffold plugin hello-world`
-    Then the fp-content/plugins/hello-world directory should exist
-    And the fp-content/plugins/hello-world/hello-world.php file should exist
-    And the fp-content/plugins/hello-world/.circleci/config.yml file should exist
-    And the fp-content/plugins/hello-world/bin directory should exist
+    When I run `fin scaffold plugin hello-world`
+    Then the fin-content/plugins/hello-world directory should exist
+    And the fin-content/plugins/hello-world/hello-world.php file should exist
+    And the fin-content/plugins/hello-world/.circleci/config.yml file should exist
+    And the fin-content/plugins/hello-world/bin directory should exist
 
-    When I run `fp dist-archive . ./hello-world.zip` from 'fp-content/plugins/hello-world'
+    When I run `fin dist-archive . ./hello-world.zip` from 'fin-content/plugins/hello-world'
     Then STDOUT should match /^Success: Created hello-world.zip \(Size: \d+(?:\.\d*)? [a-zA-Z]{1,3}\)$/
     And STDERR should be empty
-    And the {RUN_DIR}/fp-content/plugins/hello-world/hello-world.zip file should exist
+    And the {RUN_DIR}/fin-content/plugins/hello-world/hello-world.zip file should exist
 
   Scenario: Allow specifying the current directory without filename for output using dot
-    Given a FP install
+    Given a FIN install
 
-    When I run `fp scaffold plugin hello-world`
-    Then the fp-content/plugins/hello-world directory should exist
-    And the fp-content/plugins/hello-world/hello-world.php file should exist
-    And the fp-content/plugins/hello-world/.circleci/config.yml file should exist
-    And the fp-content/plugins/hello-world/bin directory should exist
+    When I run `fin scaffold plugin hello-world`
+    Then the fin-content/plugins/hello-world directory should exist
+    And the fin-content/plugins/hello-world/hello-world.php file should exist
+    And the fin-content/plugins/hello-world/.circleci/config.yml file should exist
+    And the fin-content/plugins/hello-world/bin directory should exist
 
-    When I run `fp dist-archive fp-content/plugins/hello-world .`
+    When I run `fin dist-archive fin-content/plugins/hello-world .`
     Then STDOUT should match /^Success: Created hello-world.0.1.0.zip \(Size: \d+(?:\.\d*)? [a-zA-Z]{1,3}\)$/
     And STDERR should be empty
     And the {RUN_DIR}/hello-world.0.1.0.zip file should exist
 
   Scenario: Generates an archive with another name using the plugin-dirname flag
-    Given a FP install
+    Given a FIN install
 
-    When I run `fp scaffold plugin hello-world`
-    Then the fp-content/plugins/hello-world directory should exist
-    And the fp-content/plugins/hello-world/hello-world.php file should exist
-    And the fp-content/plugins/hello-world/.circleci/config.yml file should exist
-    And the fp-content/plugins/hello-world/bin directory should exist
+    When I run `fin scaffold plugin hello-world`
+    Then the fin-content/plugins/hello-world directory should exist
+    And the fin-content/plugins/hello-world/hello-world.php file should exist
+    And the fin-content/plugins/hello-world/.circleci/config.yml file should exist
+    And the fin-content/plugins/hello-world/bin directory should exist
 
-    When I run `fp dist-archive fp-content/plugins/hello-world --plugin-dirname=foobar-world`
+    When I run `fin dist-archive fin-content/plugins/hello-world --plugin-dirname=foobar-world`
     Then STDOUT should match /^Success: Created foobar-world.0.1.0.zip \(Size: \d+(?:\.\d*)? [a-zA-Z]{1,3}\)$/
     And STDERR should be empty
-    And the fp-content/plugins/foobar-world.0.1.0.zip file should exist
+    And the fin-content/plugins/foobar-world.0.1.0.zip file should exist
 
-    When I run `fp plugin delete hello-world`
-    Then the fp-content/plugins/hello-world directory should not exist
+    When I run `fin plugin delete hello-world`
+    Then the fin-content/plugins/hello-world directory should not exist
 
-    When I run `fp plugin install fp-content/plugins/foobar-world.0.1.0.zip`
-    Then the fp-content/plugins/foobar-world directory should exist
-    And the fp-content/plugins/foobar-world/hello-world.php file should exist
+    When I run `fin plugin install fin-content/plugins/foobar-world.0.1.0.zip`
+    Then the fin-content/plugins/foobar-world directory should exist
+    And the fin-content/plugins/foobar-world/hello-world.php file should exist
 
   Scenario: Finds the version tag even if ill-formed
-    Given a FP install
+    Given a FIN install
 
-    When I run `fp scaffold plugin hello-world`
-    Then the fp-content/plugins/hello-world directory should exist
-    And the fp-content/plugins/hello-world/hello-world.php file should exist
-    And the fp-content/plugins/hello-world/.circleci/config.yml file should exist
-    And the fp-content/plugins/hello-world/bin directory should exist
+    When I run `fin scaffold plugin hello-world`
+    Then the fin-content/plugins/hello-world directory should exist
+    And the fin-content/plugins/hello-world/hello-world.php file should exist
+    And the fin-content/plugins/hello-world/.circleci/config.yml file should exist
+    And the fin-content/plugins/hello-world/bin directory should exist
 
-    When I run `awk '{sub("\\* Version","Version",$0); print}' {RUN_DIR}/fp-content/plugins/hello-world/hello-world.php > hello-world.tmp && mv hello-world.tmp {RUN_DIR}/fp-content/plugins/hello-world/hello-world.php`
+    When I run `awk '{sub("\\* Version","Version",$0); print}' {RUN_DIR}/fin-content/plugins/hello-world/hello-world.php > hello-world.tmp && mv hello-world.tmp {RUN_DIR}/fin-content/plugins/hello-world/hello-world.php`
     Then STDERR should be empty
-    When I run `awk '{sub("0.1.0","0.2.0",$0); print}' {RUN_DIR}/fp-content/plugins/hello-world/hello-world.php > hello-world.tmp && mv hello-world.tmp {RUN_DIR}/fp-content/plugins/hello-world/hello-world.php`
+    When I run `awk '{sub("0.1.0","0.2.0",$0); print}' {RUN_DIR}/fin-content/plugins/hello-world/hello-world.php > hello-world.tmp && mv hello-world.tmp {RUN_DIR}/fin-content/plugins/hello-world/hello-world.php`
     Then STDERR should be empty
 
-    When I run `fp dist-archive fp-content/plugins/hello-world`
+    When I run `fin dist-archive fin-content/plugins/hello-world`
     Then STDOUT should match /^Success: Created hello-world.0.2.0.zip \(Size: \d+(?:\.\d*)? [a-zA-Z]{1,3}\)$/
     And STDERR should be empty
-    And the fp-content/plugins/hello-world.0.2.0.zip file should exist
+    And the fin-content/plugins/hello-world.0.2.0.zip file should exist
 
-    When I run `fp plugin delete hello-world`
-    Then the fp-content/plugins/hello-world directory should not exist
+    When I run `fin plugin delete hello-world`
+    Then the fin-content/plugins/hello-world directory should not exist
 
-    When I run `fp plugin install fp-content/plugins/hello-world.0.2.0.zip`
-    Then the fp-content/plugins/hello-world directory should exist
-    And the fp-content/plugins/hello-world/hello-world.php file should exist
-    And the fp-content/plugins/hello-world/.circleci/config.yml file should not exist
-    And the fp-content/plugins/hello-world/bin directory should not exist
+    When I run `fin plugin install fin-content/plugins/hello-world.0.2.0.zip`
+    Then the fin-content/plugins/hello-world directory should exist
+    And the fin-content/plugins/hello-world/hello-world.php file should exist
+    And the fin-content/plugins/hello-world/.circleci/config.yml file should not exist
+    And the fin-content/plugins/hello-world/bin directory should not exist
 
-  # This test does not work with SQLite because it wipes fp-content
+  # This test does not work with SQLite because it wipes fin-content
   # but SQLite requires an integration plugin & drop-in to work.
   @require-mysql
   Scenario: Avoids recursive symlink
-    Given a FP install in finpress
+    Given a FIN install in finpress
     And a .distignore file:
       """
-      fp-content
+      fin-content
       finpress
       """
 
-    When I run `mkdir -p fp-content/plugins`
+    When I run `mkdir -p fin-content/plugins`
     Then STDERR should be empty
 
-    When I run `rm -rf finpress/fp-content`
+    When I run `rm -rf finpress/fin-content`
     Then STDERR should be empty
 
-    When I run `ln -s {RUN_DIR}/fp-content {RUN_DIR}/finpress/fp-content`
+    When I run `ln -s {RUN_DIR}/fin-content {RUN_DIR}/finpress/fin-content`
     Then STDERR should be empty
 
-    When I run `fp scaffold plugin hello-world --path=finpress`
-    Then the fp-content/plugins/hello-world directory should exist
-    And the fp-content/plugins/hello-world/hello-world.php file should exist
+    When I run `fin scaffold plugin hello-world --path=finpress`
+    Then the fin-content/plugins/hello-world directory should exist
+    And the fin-content/plugins/hello-world/hello-world.php file should exist
 
-    When I run `mv fp-content/plugins/hello-world/hello-world.php .`
+    When I run `mv fin-content/plugins/hello-world/hello-world.php .`
     Then STDERR should be empty
 
-    When I run `rm -rf fp-content/plugins/hello-world`
+    When I run `rm -rf fin-content/plugins/hello-world`
     Then STDERR should be empty
 
-    When I run `ln -s {RUN_DIR} {RUN_DIR}/fp-content/plugins/hello-world`
+    When I run `ln -s {RUN_DIR} {RUN_DIR}/fin-content/plugins/hello-world`
     Then STDERR should be empty
-    And the fp-content/plugins/hello-world/hello-world.php file should exist
+    And the fin-content/plugins/hello-world/hello-world.php file should exist
 
-    When I run `fp dist-archive . --plugin-dirname=$(basename "{RUN_DIR}")`
+    When I run `fin dist-archive . --plugin-dirname=$(basename "{RUN_DIR}")`
     Then STDERR should be empty
 
   Scenario: Warns but continues when no distignore file is present
@@ -314,7 +314,7 @@ Feature: Generate a distribution archive of a project
     */
       """
 
-    When I try `fp dist-archive test-plugin`
+    When I try `fin dist-archive test-plugin`
     Then STDERR should contain:
       """
       No .distignore file found. All files in directory included in archive.
@@ -322,53 +322,53 @@ Feature: Generate a distribution archive of a project
     And the test-plugin.1.0.0.zip file should exist
 
   Scenario: Generates a ZIP archive for a theme with the version appended
-    Given a FP install
+    Given a FIN install
 
-    When I run `fp scaffold _s new-theme`
-    Then the fp-content/themes/new-theme directory should exist
+    When I run `fin scaffold _s new-theme`
+    Then the fin-content/themes/new-theme directory should exist
 
     # A newly scaffold theme triggers a warning for missing .distignore
-    When I try `fp dist-archive fp-content/themes/new-theme`
+    When I try `fin dist-archive fin-content/themes/new-theme`
     Then STDOUT should contain:
       """
       Success: Created new-theme.1.0.0.zip
       """
-    And the fp-content/themes/new-theme.1.0.0.zip file should exist
+    And the fin-content/themes/new-theme.1.0.0.zip file should exist
 
-    When I run `fp theme delete new-theme`
-    Then the fp-content/themes/new-theme directory should not exist
+    When I run `fin theme delete new-theme`
+    Then the fin-content/themes/new-theme directory should not exist
 
-    When I run `fp theme install fp-content/themes/new-theme.1.0.0.zip`
-    Then the fp-content/themes/new-theme directory should exist
+    When I run `fin theme install fin-content/themes/new-theme.1.0.0.zip`
+    Then the fin-content/themes/new-theme directory should exist
 
   Scenario: Generates a ZIP archive with a custom filename format
-    Given a FP install
+    Given a FIN install
 
-    When I run `fp scaffold plugin hello-world`
-    Then the fp-content/plugins/hello-world directory should exist
-    And the fp-content/plugins/hello-world/hello-world.php file should exist
-    And the fp-content/plugins/hello-world/.circleci/config.yml file should exist
-    And the fp-content/plugins/hello-world/bin directory should exist
+    When I run `fin scaffold plugin hello-world`
+    Then the fin-content/plugins/hello-world directory should exist
+    And the fin-content/plugins/hello-world/hello-world.php file should exist
+    And the fin-content/plugins/hello-world/.circleci/config.yml file should exist
+    And the fin-content/plugins/hello-world/bin directory should exist
 
-    When I run `fp dist-archive fp-content/plugins/hello-world --filename-format={name}-{version}`
+    When I run `fin dist-archive fin-content/plugins/hello-world --filename-format={name}-{version}`
     Then STDOUT should match /^Success: Created hello-world-0.1.0.zip \(Size: \d+(?:\.\d*)? [a-zA-Z]{1,3}\)$/
     And STDERR should be empty
-    And the fp-content/plugins/hello-world-0.1.0.zip file should exist
+    And the fin-content/plugins/hello-world-0.1.0.zip file should exist
 
   Scenario: Ignores filename format when custom name is provided
-    Given a FP install
+    Given a FIN install
 
-    When I run `fp scaffold plugin hello-world`
-    Then the fp-content/plugins/hello-world directory should exist
-    And the fp-content/plugins/hello-world/hello-world.php file should exist
-    And the fp-content/plugins/hello-world/.circleci/config.yml file should exist
-    And the fp-content/plugins/hello-world/bin directory should exist
+    When I run `fin scaffold plugin hello-world`
+    Then the fin-content/plugins/hello-world directory should exist
+    And the fin-content/plugins/hello-world/hello-world.php file should exist
+    And the fin-content/plugins/hello-world/.circleci/config.yml file should exist
+    And the fin-content/plugins/hello-world/bin directory should exist
 
-    When I run `fp dist-archive fp-content/plugins/hello-world hello-world.zip --filename-format={name}-{version}`
+    When I run `fin dist-archive fin-content/plugins/hello-world hello-world.zip --filename-format={name}-{version}`
     Then STDOUT should match /^Success: Created hello-world.zip \(Size: \d+(?:\.\d*)? [a-zA-Z]{1,3}\)$/
     And STDERR should be empty
-    And the fp-content/plugins/hello-world.zip file should exist
-    And the fp-content/plugins/hello-world-0.1.0.zip file should not exist
+    And the fin-content/plugins/hello-world.zip file should exist
+    And the fin-content/plugins/hello-world-0.1.0.zip file should not exist
 
   Scenario: Ignores filename format when version does not exist
     Given an empty directory
@@ -382,29 +382,29 @@ Feature: Generate a distribution archive of a project
       echo 'Hello world;';
       """
 
-    When I run `fp dist-archive foo --filename-format={name}-{version}`
+    When I run `fin dist-archive foo --filename-format={name}-{version}`
     Then STDOUT should match /^Success: Created foo.zip \(Size: \d+(?:\.\d*)? [a-zA-Z]{1,3}\)$/
     And STDERR should be empty
     And the foo.zip file should exist
 
   Scenario: Ask for confirmation if archive file exists
-    Given a FP install
+    Given a FIN install
 
-    When I run `fp scaffold plugin hello-world`
-    Then the fp-content/plugins/hello-world directory should exist
-    And the fp-content/plugins/hello-world/hello-world.php file should exist
-    And the fp-content/plugins/hello-world/.circleci/config.yml file should exist
-    And the fp-content/plugins/hello-world/bin directory should exist
+    When I run `fin scaffold plugin hello-world`
+    Then the fin-content/plugins/hello-world directory should exist
+    And the fin-content/plugins/hello-world/hello-world.php file should exist
+    And the fin-content/plugins/hello-world/.circleci/config.yml file should exist
+    And the fin-content/plugins/hello-world/bin directory should exist
 
     When I run `mkdir subdir`
     Then the subdir directory should exist
 
-    When I run `fp dist-archive fp-content/plugins/hello-world ./subdir/hello-world-dist.zip`
+    When I run `fin dist-archive fin-content/plugins/hello-world ./subdir/hello-world-dist.zip`
     Then STDOUT should match /^Success: Created hello-world-dist.zip \(Size: \d+(?:\.\d*)? [a-zA-Z]{1,3}\)$/
     And STDERR should be empty
     And the {RUN_DIR}/subdir/hello-world-dist.zip file should exist
 
-    When I try `echo "s" | fp dist-archive fp-content/plugins/hello-world ./subdir/hello-world-dist.zip`
+    When I try `echo "s" | fin dist-archive fin-content/plugins/hello-world ./subdir/hello-world-dist.zip`
     Then STDERR should contain:
       """
       Warning: Archive file already exists
@@ -425,7 +425,7 @@ Feature: Generate a distribution archive of a project
     And the return code should be 0
 
 
-    When I try `echo "r" | fp dist-archive fp-content/plugins/hello-world ./subdir/hello-world-dist.zip`
+    When I try `echo "r" | fin dist-archive fin-content/plugins/hello-world ./subdir/hello-world-dist.zip`
     And STDERR should contain:
       """
       Warning: Archive file already exists
@@ -442,15 +442,15 @@ Feature: Generate a distribution archive of a project
     And the return code should be 0
 
   Scenario: Do not ask for confirmation if archive file exists when using --force
-    Given a FP install
+    Given a FIN install
 
-    When I run `fp scaffold plugin hello-world`
-    Then the fp-content/plugins/hello-world directory should exist
+    When I run `fin scaffold plugin hello-world`
+    Then the fin-content/plugins/hello-world directory should exist
 
-    When I run `fp dist-archive fp-content/plugins/hello-world ./hello-world-dist.zip`
+    When I run `fin dist-archive fin-content/plugins/hello-world ./hello-world-dist.zip`
     Then STDERR should be empty
 
-    When I try `fp dist-archive fp-content/plugins/hello-world ./hello-world-dist.zip --force`
+    When I try `fin dist-archive fin-content/plugins/hello-world ./hello-world-dist.zip --force`
     Then STDERR should be empty
     And STDOUT should contain:
       """
@@ -471,7 +471,7 @@ Feature: Generate a distribution archive of a project
       Hello Bar
       """
 
-    When I try `fp dist-archive foo`
+    When I try `fin dist-archive foo`
     Then the foo.zip file should exist
 
     When I try `zipinfo -1 foo.zip`
@@ -485,7 +485,7 @@ Feature: Generate a distribution archive of a project
       """
 
     When I run `echo "foo.txt" > foo/.distignore`
-    And I try `fp dist-archive foo --force`
+    And I try `fin dist-archive foo --force`
     Then the foo.zip file should exist
 
     When I try `zipinfo -1 foo.zip`
@@ -512,7 +512,7 @@ Feature: Generate a distribution archive of a project
       Hello Bar
       """
 
-    When I try `fp dist-archive foo --format=targz`
+    When I try `fin dist-archive foo --format=targz`
     Then the foo.tar.gz file should exist
 
     When I try `tar -tf foo.tar.gz`
@@ -526,7 +526,7 @@ Feature: Generate a distribution archive of a project
       """
 
     When I run `echo "foo.txt" > foo/.distignore`
-    And I try `fp dist-archive foo --format=targz --force`
+    And I try `fin dist-archive foo --format=targz --force`
     Then the foo.tar.gz file should exist
 
     When I try `tar -tf foo.tar.gz`

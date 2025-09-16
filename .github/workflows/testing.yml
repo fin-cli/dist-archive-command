@@ -11,6 +11,6 @@ on:
 
 jobs:
   test:
-    uses: fp-cli/.github/.github/workflows/reusable-testing.yml@main
+    uses: fin-cli/.github/.github/workflows/reusable-testing.yml@main
     with:
       minimum-php: '7.2'
